@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardápio — Feira do Mundo Rural Travassô 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark: #1e4d2b;
+    --green-mid: #2d6a40;
+    --green-light: #4a9b60;
+    --cream: #fdf8ef;
+    --cream-dark: #f0e8d5;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --brown: #7a4a1e;
+    --text: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --white: #ffffff;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-hover: 0 6px 24px rgba(0,0,0,0.14);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-mid) 60%, var(--green-light) 100%);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .logos-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    padding: 4px;
+    backdrop-filter: blur(4px);
+  }
+  .logo-divider {
+    width: 2px;
+    height: 60px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 2px;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+  }
+  .hero h1 span {
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 0.6rem;
+    position: relative;
+  }
+  .badge-year {
+    display: inline-block;
+    margin-top: 1.2rem;
+    background: var(--gold);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.35rem 1.1rem;
+    border-radius: 999px;
+    position: relative;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--green-dark);
+    overflow-x: auto;
+    scrollbar-width: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .nav-wrap::-webkit-scrollbar { display: none; }
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    min-width: max-content;
+    padding: 0 0.5rem;
+  }
+  .nav-tab {
+    padding: 0.9rem 1.1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.65);
+    cursor: pointer;
+    border: none;
+    background: none;
+    white-space: nowrap;
+    transition: color 0.2s, border-bottom 0.2s;
+    border-bottom: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .nav-tab:hover { color: rgba(255,255,255,0.9); }
+  .nav-tab.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold-light);
+  }
+
+  /* ── SECTIONS ── */
+  .sections-wrap { padding: 2rem 1rem 4rem; max-width: 900px; margin: 0 auto; }
+
+  .category-section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .category-section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--cream-dark);
+  }
+  .section-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--green-dark);
+  }
+
+  /* ── ITEM GRID ── */
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .item-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    transition: box-shadow 0.2s, transform 0.15s;
+    border-left: 4px solid transparent;
+  }
+  .item-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Category accent colors */
+  .cat-doces .item-card { border-left-color: #e8b84b; }
+  .cat-lanches .item-card { border-left-color: #c8522a; }
+  .cat-naAlc .item-card { border-left-color: #4a9b9b; }
+  .cat-alc .item-card { border-left-color: #7a4a8e; }
+
+  .item-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.35;
+  }
+  .item-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    white-space: nowrap;
+    background: var(--cream);
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.78rem;
+  }
+  .footer strong { color: var(--gold-light); }
+
+  @media (max-width: 480px) {
+    .items-grid { grid-template-columns: 1fr; }
+    .hero { padding: 2rem 1rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="logos-row">
+    <img class="logo-img" src="WhatsApp_Image_2026-06-15_at_21_09_14__1_.jpeg" alt="Feira do Mundo Rural Travassô 2026" onerror="this.style.display='none'">
+    <div class="logo-divider"></div>
+    <img class="logo-img" src="WhatsApp_Image_2026-06-15_at_21_09_14.jpeg" alt="APEBT" onerror="this.style.display='none'">
+  </div>
+  <p class="hero-eyebrow">Cardápio Oficial</p>
+  <h1>Feira do <span>Mundo Rural</span><br>Travassô</h1>
+  <p class="hero-sub">Associação de Pais da Escola Básica de Travassô</p>
+  <span class="badge-year">✦ 2026 ✦</span>
+</header>
+
+<!-- NAV TABS -->
+<nav class="nav-wrap">
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showCat('doces', this)">🍭 Doces &amp; Sobremesas</button>
+    <button class="nav-tab" onclick="showCat('lanches', this)">🥖 Lanches &amp; Salgados</button>
+    <button class="nav-tab" onclick="showCat('naAlc', this)">🥤 Bebidas Não Alcoólicas</button>
+    <button class="nav-tab" onclick="showCat('alc', this)">🍷 Bebidas Alcoólicas</button>
+  </div>
+</nav>
+
+<!-- SECTIONS -->
+<main class="sections-wrap">
+
+  <!-- DOCES -->
+  <section class="category-section cat-doces active" id="sec-doces">
+    <div class="section-header">
+      <span class="section-icon">🍭</span>
+      <h2 class="section-title">Doces &amp; Sobremesas</h2>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><span class="item-name">Algodão Doce</span><span class="item-price">3,00 €</span></div>
+      <div class="item-card"><span class="item-name">Bolachas (frasco)</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Brigadeiro em copo</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Brigadeiros</span><span class="item-price">1,00 €</span></div>
+      <div class="item-card"><span class="item-name">Chupa-chupas grandes</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Chupa-chupas pequenos</span><span class="item-price">0,50 €</span></div>
+      <div class="item-card"><span class="item-name">Compotas</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gelados</span><span class="item-price">3,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gomas (100g)</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gomas (150g)</span><span class="item-price">3,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gomas em espetada</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Pastéis de nata</span><span class="item-price">1,20 €</span></div>
+      <div class="item-card"><span class="item-name">Pipocas</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Rebuçados (um)</span><span class="item-price">0,10 €</span></div>
+    </div>
+  </section>
+
+  <!-- LANCHES -->
+  <section class="category-section cat-lanches" id="sec-lanches">
+    <div class="section-header">
+      <span class="section-icon">🥖</span>
+      <h2 class="section-title">Lanches &amp; Salgados</h2>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><span class="item-name">Bifana em fatia de pão caseiro</span><span class="item-price">3,00 €</span></div>
+      <div class="item-card"><span class="item-name">Bifana em fatia de pão caseiro com batata</span><span class="item-price">3,50 €</span></div>
+      <div class="item-card"><span class="item-name">Bolacha americana com recheio</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Bolacha americana simples</span><span class="item-price">1,00 €</span></div>
+      <div class="item-card"><span class="item-name">Cachorros (em pão caseiro ou tradicional)</span><span class="item-price">3,00 €</span></div>
+      <div class="item-card"><span class="item-name">Caixas de fruta</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Empalhada</span><span class="item-price">2,50 €</span></div>
+      <div class="item-card"><span class="item-name">Leitão (sandes)</span><span class="item-price">6,50 €</span></div>
+      <div class="item-card"><span class="item-name">Leitão (sandes) com batata</span><span class="item-price">7,50 €</span></div>
+      <div class="item-card"><span class="item-name">Moelas com pão</span><span class="item-price">5,00 €</span></div>
+      <div class="item-card"><span class="item-name">Ovos Codorniz</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Saco de bolacha americana</span><span class="item-price">4,00 €</span></div>
+      <div class="item-card"><span class="item-name">Tábua de chouriça com pão caseiro</span><span class="item-price">6,00 €</span></div>
+      <div class="item-card"><span class="item-name">Tábua de enchidos com pão caseiro</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Tábua de queijos e enchidos com pão caseiro</span><span class="item-price">12,00 €</span></div>
+      <div class="item-card"><span class="item-name">Tripa com Nutella</span><span class="item-price">3,30 €</span></div>
+      <div class="item-card"><span class="item-name">Tripa com Doce de Morango</span><span class="item-price">3,30 €</span></div>
+      <div class="item-card"><span class="item-name">Tripa com Ovos Moles</span><span class="item-price">3,30 €</span></div>
+      <div class="item-card"><span class="item-name">Tripa com Chocolate</span><span class="item-price">3,30 €</span></div>
+      <div class="item-card"><span class="item-name">Tripa com Chocolate Branco</span><span class="item-price">3,30 €</span></div>
+      <div class="item-card"><span class="item-name">Tripa simples</span><span class="item-price">2,50 €</span></div>
+    </div>
+  </section>
+
+  <!-- NÃO ALCOÓLICAS -->
+  <section class="category-section cat-naAlc" id="sec-naAlc">
+    <div class="section-header">
+      <span class="section-icon">🥤</span>
+      <h2 class="section-title">Bebidas Não Alcoólicas</h2>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><span class="item-name">Água 0,5l</span><span class="item-price">1,00 €</span></div>
+      <div class="item-card"><span class="item-name">Água Pedras</span><span class="item-price">1,30 €</span></div>
+      <div class="item-card"><span class="item-name">Café</span><span class="item-price">0,80 €</span></div>
+      <div class="item-card"><span class="item-name">Coca-cola</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Frize Limão</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Ice-tea (manga, pêssego e manga)</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Limonada (1l)</span><span class="item-price">5,00 €</span></div>
+      <div class="item-card"><span class="item-name">Limonada (copo)</span><span class="item-price">1,50 €</span></div>
+    </div>
+  </section>
+
+  <!-- ALCOÓLICAS -->
+  <section class="category-section cat-alc" id="sec-alc">
+    <div class="section-header">
+      <span class="section-icon">🍷</span>
+      <h2 class="section-title">Bebidas Alcoólicas</h2>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><span class="item-name">Caipi Kids</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">CaipiBlack</span><span class="item-price">5,00 €</span></div>
+      <div class="item-card"><span class="item-name">Caipirão</span><span class="item-price">5,00 €</span></div>
+      <div class="item-card"><span class="item-name">Caipirinha</span><span class="item-price">5,00 €</span></div>
+      <div class="item-card"><span class="item-name">Croft duplo</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Croft Simples</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Espumante (copo)</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Espumante Messias Bruto (garrafa 0,75l)</span><span class="item-price">10,00 €</span></div>
+      <div class="item-card"><span class="item-name">Espumante Messias Millesime Grande Cuvee (garrafa 0,75l)</span><span class="item-price">12,00 €</span></div>
+      <div class="item-card"><span class="item-name">Fino</span><span class="item-price">1,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gin Blue Moon (Black Wolf)</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gin Distiller's Signature (Black Wolf)</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gin Forest Essence (Black Wolf)</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Gin Passion Bloom (Black Wolf)</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Licor Beirão</span><span class="item-price">3,30 €</span></div>
+      <div class="item-card"><span class="item-name">Martini com cerveja</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Martini simples</span><span class="item-price">1,10 €</span></div>
+      <div class="item-card"><span class="item-name">Panaché</span><span class="item-price">1,20 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria frutos vermelhos (copo 0,2l)</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria frutos vermelhos (jarro 1l)</span><span class="item-price">8,50 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria frutos vermelhos Kids (copo 0,2l)</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria frutos vermelhos Kids (jarro 1l)</span><span class="item-price">5,00 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria maracujá (copo 0,2l)</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria maracujá (jarro 1l)</span><span class="item-price">8,50 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria maracujá Kids (copo 0,2l)</span><span class="item-price">1,50 €</span></div>
+      <div class="item-card"><span class="item-name">Sangria maracujá Kids (jarro 1l)</span><span class="item-price">5,00 €</span></div>
+      <div class="item-card"><span class="item-name">Somersby 0,33l</span><span class="item-price">2,00 €</span></div>
+      <div class="item-card"><span class="item-name">Vinho (copo 0,2l)</span><span class="item-price">0,80 €</span></div>
+      <div class="item-card"><span class="item-name">Vinho Douro Altano Branco (garrafa 0,75l)</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Vinho Douro Altano Tinto (garrafa 0,75l)</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Vinho Verde Antigos Escolha (garrafa 0,75l)</span><span class="item-price">7,00 €</span></div>
+      <div class="item-card"><span class="item-name">Whisky Lupus Signatus Centeio (Black Wolf)</span><span class="item-price">4,50 €</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <strong>Feira do Mundo Rural Travassô 2026</strong> · APEBT — Associação de Pais da Escola Básica de Travassô
+</footer>
+
+<script>
+  function showCat(cat, btn) {
+    document.querySelectorAll('.category-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('sec-' + cat).classList.add('active');
+    btn.classList.add('active');
+    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+</script>
+</body>
+</html>
